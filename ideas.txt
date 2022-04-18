@@ -1,0 +1,39 @@
+{
+    "_id" : ObjectId("625cdd07af8ab4ea54f9c739"),
+    "name" : "B",
+    
+    "hands" : [
+        {
+            "hand":"Derecha",
+            "types" : [
+                {
+                    "type":"Validacion,
+                    "images":[]
+                },
+                {
+                    "type":"Entrenamiento,
+                    "images":[]
+                },
+            ],
+        },
+        {
+            "hand":"Izquierda",
+            "types" : [
+                {
+                    "type":"Validacion,
+                    "images":[]
+                },
+                {
+                    "type":"Entrenamiento,
+                    "images":[]
+                },
+            ],
+        },
+        
+        ],
+    "user" : ObjectId("625b70293d8aa99b04a89ec7"),
+    "images" : [],
+    "createdAt" : ISODate("2022-04-18T03:37:43.771Z"),
+    "updatedAt" : ISODate("2022-04-18T03:37:43.771Z"),
+    "__v" : 0
+}
