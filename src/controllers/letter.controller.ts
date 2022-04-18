@@ -122,7 +122,7 @@ export class LetterController {
         _id, _userId
       );
       if (ok) {
-        removeDir(resolve(__dirname));
+        removeDir(resolve(__dirname, letter!.getPathLetter()));
         return { ok: true, status: 200, message, result: { letter } };
       }
       return { ok: false, status: 400, message };
