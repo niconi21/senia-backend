@@ -1,5 +1,5 @@
-import { User } from "../models/user.schema";
-import UserSchema from "../models/user.schema";
+import { User } from "../schemas/user.schema";
+import UserSchema from "../schemas/user.schema";
 import { IResult } from "../interfaces/response.interface";
 export class AuthClass {
   public async register(data: User): Promise<IResult> {

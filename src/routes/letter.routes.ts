@@ -5,7 +5,7 @@ import {
   Letter,
   TYPES_LETTERS,
   NAME_LETTERS,
-} from "../models/letter.schema";
+} from "../schemas/letter.schema";
 import { getUserFromRequest } from "../tools/request.tools";
 import { LetterController } from "../controllers/letter.controller";
 
@@ -69,6 +69,10 @@ ROUTES_LETTER.get("/", async (req: Request, res: Response) => {
   let user = getUserFromRequest(req);
   let response = await LetterController.getLetterByUser(user._id);
   res.status(response.status).json(response);
+});
+
+ROUTES_LETTER.get("/get", async (req: Request, res: Response) => {
+  
 });
 
 ROUTES_LETTER.delete("/:_id", async (req: Request, res: Response) => {

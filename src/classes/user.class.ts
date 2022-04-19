@@ -1,5 +1,5 @@
 import { IResult } from "../interfaces/response.interface";
-import UserSchema, { User } from "../models/user.schema";
+import UserSchema, { User } from "../schemas/user.schema";
 
 export class UserClass {
   public async getById(_id: string): Promise<IResult> {

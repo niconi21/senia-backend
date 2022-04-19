@@ -1,5 +1,6 @@
-import { User } from "../models/user.schema";
-import { Letter } from '../models/letter.schema';
+import { User } from "../schemas/user.schema";
+import { Letter } from '../schemas/letter.schema';
+import { Image } from '../schemas/image.schema';
 
 export interface IResponse {
   ok: boolean;
@@ -26,4 +27,6 @@ export interface IResult {
   users?: User[];
   letter?: Letter;
   letters?: Letter[];
+  image?: Image;
+  images?: Image[];
 }

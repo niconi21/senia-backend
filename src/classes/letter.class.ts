@@ -1,5 +1,6 @@
 import { IResult } from "../interfaces/response.interface";
-import LetterSchema, { Letter } from "../models/letter.schema";
+import LetterSchema, { Letter } from "../schemas/letter.schema";
+import { ENVIROMENT_APP } from "../configs/enviromets.config";
 
 export class LetterClass {
   public async registerLetter(data: Letter): Promise<IResult> {
@@ -33,6 +34,18 @@ export class LetterClass {
   ): Promise<IResult> {
     try {
       let letter = await LetterSchema.findOne({ _id, user: _userId });
+      if (letter) {
+        return { ok: true, message: "Información de la letra", letter };
+      }
+      return { ok: false, message: "Letra no encontrada" };
+    } catch (error) {
+      return { ok: false, message: "Letra no encontrada", error };
+    }
+  }
+
+  public async getLetterById(_id: string): Promise<IResult> {
+    try {
+      let letter = await LetterSchema.findById(_id);
       if (letter) {
         return { ok: true, message: "Información de la letra", letter };
       }
@@ -100,6 +113,12 @@ export class LetterClass {
     }
   }
 
+  public async getLetterByOptions({ name, type, hand }: Letter) {
+    try {
+      let result = LetterSchema.find({ name, type, hand });
+    } catch (error) {}
+  }
+
   public async deleteLetterById(
     _id: string,
     _userId: string
@@ -113,6 +132,51 @@ export class LetterClass {
       }
     } catch (error) {
       return { ok: false, message: "La letra no se pudo eliminar", error };
+    }
+  }
+
+  public async isCompletedLetter(_letterId: string): Promise<boolean> {
+    try {
+      let letter = await LetterSchema.findById(_letterId);
+      if (letter) {
+        let percentage =
+          (letter.images.length * 100) / ENVIROMENT_APP.COUNT_IMAGES;
+        if (percentage < 100) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    } catch (error) {
+      return true;
+    }
+  }
+
+  public async updatePercentageLetter(_letterId: string): Promise<void> {
+    try {
+      let letter = await LetterSchema.findById(_letterId);
+      if (letter) {
+        letter.percentage =
+          (letter.images.length * 100) / ENVIROMENT_APP.COUNT_IMAGES;
+        await letter.save();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async isLetterFromUser(
+    _id: string,
+    _userId: string
+  ): Promise<boolean> {
+    try {
+      let letter = await LetterSchema.findOne({ _id, user: _userId });
+      if (letter) return true;
+      else return false;
+    } catch (error) {
+      return false;
     }
   }
 }

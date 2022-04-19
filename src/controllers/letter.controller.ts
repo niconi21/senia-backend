@@ -1,8 +1,10 @@
 import { IResponse } from "../interfaces/response.interface";
-import { Letter } from "../models/letter.schema";
+import { Letter } from "../schemas/letter.schema";
 import { LetterClass } from "../classes/letter.class";
 import { createDir, removeDir } from "../tools/dir.tools";
 import { resolve } from "path";
+import { Image } from "../schemas/image.schema";
+import { underline } from "colors";
 export class LetterController {
   private static _letterClass = new LetterClass();
 
@@ -76,11 +78,11 @@ export class LetterController {
           letter.hands.forEach((hand) => {
             hand.types = Array.from(hand.types.values());
             total += hand.types.length;
-          });
 
+            hand.types.forEach(type => type.images = [])
+          });
           return letter;
         });
-
         return {
           ok: true,
           status: 200,
@@ -119,7 +121,8 @@ export class LetterController {
   ): Promise<IResponse> {
     try {
       let { ok, letter, message } = await this._letterClass.deleteLetterById(
-        _id, _userId
+        _id,
+        _userId
       );
       if (ok) {
         removeDir(resolve(__dirname, letter!.getPathLetter()));

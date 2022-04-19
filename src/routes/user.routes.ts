@@ -3,7 +3,7 @@ import { IResponse } from "../interfaces/response.interface";
 import { getUserFromRequest } from "../tools/request.tools";
 import { isAdmin } from "../middlewares/token.middleware";
 import { json_error } from "../tools/errors.tools";
-import { User } from "../models/user.schema";
+import { User } from "../schemas/user.schema";
 import { UserController } from '../controllers/user.controller';
 
 export const ROUTES_USER = Router();

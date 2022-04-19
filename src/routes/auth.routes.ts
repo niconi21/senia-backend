@@ -1,6 +1,6 @@
 import { Request, response, Response, Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
-import { User } from "../models/user.schema";
+import { User } from "../schemas/user.schema";
 import { json_error } from "../tools/errors.tools";
 
 export const ROUTES_AUTH = Router();

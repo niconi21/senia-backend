@@ -1,6 +1,6 @@
 import { IResponse } from "../interfaces/response.interface";
 import { UserClass } from "../classes/user.class";
-import { User } from "../models/user.schema";
+import { User } from "../schemas/user.schema";
 import { removeDir } from "../tools/dir.tools";
 import { resolve } from "path";
 

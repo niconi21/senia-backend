@@ -60,7 +60,7 @@ export class Letter {
   @prop()
   createAt: Date;
   @prop({ type: () => [Image] })
-  images: Image[];
+  images: Image[] ;
   @prop({ ref: () => User })
   user: Ref<User>;
 

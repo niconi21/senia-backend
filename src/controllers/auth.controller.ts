@@ -1,7 +1,7 @@
 import { errors } from "@typegoose/typegoose";
 import { AuthClass } from "../classes/auth.class";
 import { IResponse } from "../interfaces/response.interface";
-import { User } from "../models/user.schema";
+import { User } from "../schemas/user.schema";
 import { createToken } from "../tools/token.tools";
 import { createDir } from "../tools/dir.tools";
 import { resolve } from "path";

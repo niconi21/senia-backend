@@ -1,4 +1,4 @@
-import { User } from "../models/user.schema";
+import { User } from "../schemas/user.schema";
 import { verify, sign, JwtPayload } from "jsonwebtoken";
 import { ENVIROMENT_APP } from "../configs/enviromets.config";
 
