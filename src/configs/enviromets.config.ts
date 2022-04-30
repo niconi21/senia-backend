@@ -9,4 +9,3 @@ export const ENVIROMENT_APP = {
 export const ENVIROMENT_DATABASE = {
   URI_DB: process.env.URI_DB || "mongodb://localhost:27017/lsm",
 };
-
