@@ -58,7 +58,7 @@ export class Letter {
   @prop({ default: 0 })
   percentage: number;
   @prop()
-  createAt: Date;
+  createdAt: Date;
   @prop({ type: () => [Image] })
   images: Image[] ;
   @prop({ ref: () => User })

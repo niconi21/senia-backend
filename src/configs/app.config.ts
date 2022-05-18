@@ -1,5 +1,6 @@
 import { resolve } from "path";
-
+import { readFileSync } from "fs";
+import https from "https";
 import { green, magenta, red } from "colors";
 
 import { Application } from "express";
@@ -39,11 +40,24 @@ export class App {
   public listen(): void {
     connectionDB()
       .then((success) => {
-        console.log(magenta(`Data base connected succesfully`));
-        this._app.listen(ENVIROMENT_APP.PORT, () =>
-          console.log(magenta(`Listen on port ${ENVIROMENT_APP.PORT}`))
-        );
+        if (ENVIROMENT_APP.ENV == "dev") {
+          console.log(magenta(`Data base connected succesfully`));
+          this._app.listen(ENVIROMENT_APP.PORT, () => {
+            console.log(magenta(`Listen on port ${ENVIROMENT_APP.PORT}`));
+          });
+        } else if (ENVIROMENT_APP.ENV == "prod") {
+          const httpsOptions: https.ServerOptions = {
+            key: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/privkey.pem`),
+            cert: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/cert.pem`),
+          };
+          https
+          .createServer(httpsOptions, this._app)
+          .listen(process.env.PORT, () => {
+            console.log(magenta(`Listen on port ${ENVIROMENT_APP.PORT}`));
+            });
+        }
       })
-      .catch((error) => {});
+      .catch((error) => {})
+      .finally(() => console.log(green(`Enviroment: ${ENVIROMENT_APP.ENV}`)));
   }
 }
