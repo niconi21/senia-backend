@@ -40,8 +40,8 @@ export class App {
   public listen(): void {
     connectionDB()
       .then((success) => {
+        console.log(magenta(`Data base connected succesfully`));
         if (ENVIROMENT_APP.ENVIROMENT == "dev") {
-          console.log(magenta(`Data base connected succesfully`));
           this._app.listen(ENVIROMENT_APP.PORT, () => {
             console.log(magenta(`Listen on port ${ENVIROMENT_APP.PORT}`));
           });
