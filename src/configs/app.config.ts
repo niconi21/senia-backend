@@ -49,6 +49,7 @@ export class App {
           const httpsOptions: https.ServerOptions = {
             key: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/privkey.pem`),
             cert: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/cert.pem`),
+            ca: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/chain.pem`),
           };
           https
           .createServer(httpsOptions, this._app)
