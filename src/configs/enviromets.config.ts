@@ -1,5 +1,5 @@
 export const ENVIROMENT_APP = {
-  ENV: process.env.ENVIROMENT || "dev",
+  ENVIROMENT: process.env.ENVIROMENT || "dev",
   PORT: process.env.PORT || "3000",
   PATH_SSL: process.env.PATH_SSL || '/etc/letsencrypt/live/senia.ga',
   SECRET_TOKEN: process.env.SECRET_TOKEN || "SecretoDeAmor",

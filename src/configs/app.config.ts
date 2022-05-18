@@ -40,12 +40,12 @@ export class App {
   public listen(): void {
     connectionDB()
       .then((success) => {
-        if (ENVIROMENT_APP.ENV == "dev") {
+        if (ENVIROMENT_APP.ENVIROMENT == "dev") {
           console.log(magenta(`Data base connected succesfully`));
           this._app.listen(ENVIROMENT_APP.PORT, () => {
             console.log(magenta(`Listen on port ${ENVIROMENT_APP.PORT}`));
           });
-        } else if (ENVIROMENT_APP.ENV == "prod") {
+        } else if (ENVIROMENT_APP.ENVIROMENT == "prod") {
           const httpsOptions: https.ServerOptions = {
             key: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/privkey.pem`),
             cert: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/cert.pem`),
@@ -58,6 +58,6 @@ export class App {
         }
       })
       .catch((error) => {})
-      .finally(() => console.log(green(`Enviroment: ${ENVIROMENT_APP.ENV}`)));
+      .finally(() => console.log(green(`Enviroment: ${ENVIROMENT_APP.ENVIROMENT}`)));
   }
 }
