@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.APP_ROUTES = void 0;
+const express_1 = require("express");
+const user_routes_1 = require("../routes/user.routes");
+const auth_routes_1 = require("../routes/auth.routes");
+const token_middleware_1 = require("../middlewares/token.middleware");
+const letter_routes_1 = require("../routes/letter.routes");
+const image_routes_1 = require("../routes/image.routes");
+exports.APP_ROUTES = (0, express_1.Router)();
+exports.APP_ROUTES.use("/auth", auth_routes_1.ROUTES_AUTH);
+exports.APP_ROUTES.use(token_middleware_1.getToken);
+exports.APP_ROUTES.use(token_middleware_1.isUser);
+exports.APP_ROUTES.use("/user", user_routes_1.ROUTES_USER);
+exports.APP_ROUTES.use("/letter", letter_routes_1.ROUTES_LETTER);
+exports.APP_ROUTES.use("/image", image_routes_1.ROUTES_IMAGE);
