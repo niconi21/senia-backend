@@ -22,8 +22,8 @@ export class App {
 
   private _middlewares(): void {
     this._app.use(cors());
-    this._app.use(express.json());
-    this._app.use(express.urlencoded({ extended: false }));
+    this._app.use(express.json({ limit: "50bm" }));
+    this._app.use(express.urlencoded({ extended: false, limit: "50bm" }));
     this._app.use("/public", express.static(resolve(__dirname, "../public")));
     this._app.use("/api/v1/", APP_ROUTES);
     this._createDirectoryPublic();
@@ -52,13 +52,15 @@ export class App {
             ca: readFileSync(`${ENVIROMENT_APP.PATH_SSL}/chain.pem`),
           };
           https
-          .createServer(httpsOptions, this._app)
-          .listen(process.env.PORT, () => {
-            console.log(magenta(`Listen on port ${ENVIROMENT_APP.PORT}`));
+            .createServer(httpsOptions, this._app)
+            .listen(process.env.PORT, () => {
+              console.log(magenta(`Listen on port ${ENVIROMENT_APP.PORT}`));
             });
         }
       })
       .catch((error) => {})
-      .finally(() => console.log(green(`Enviroment: ${ENVIROMENT_APP.ENVIROMENT}`)));
+      .finally(() =>
+        console.log(green(`Enviroment: ${ENVIROMENT_APP.ENVIROMENT}`))
+      );
   }
 }
