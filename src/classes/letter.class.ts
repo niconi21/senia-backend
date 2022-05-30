@@ -154,16 +154,19 @@ export class LetterClass {
     }
   }
 
-  public async updatePercentageLetter(_letterId: string): Promise<void> {
+  public async updatePercentageLetter(_letterId: string): Promise<IResult> {
     try {
       let letter = await LetterSchema.findById(_letterId);
       if (letter) {
         letter.percentage =
           (letter.images.length * 100) / ENVIROMENT_APP.COUNT_IMAGES;
         await letter.save();
+        return { ok: true, message: "letra actualizada", letter };
       }
+      return { ok: false, message: "letra no actualizada"};
     } catch (error) {
       console.log(error);
+      return { ok: false, message: "letra no actualizada" };
     }
   }
 

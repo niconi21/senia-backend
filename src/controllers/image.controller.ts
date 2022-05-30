@@ -15,11 +15,12 @@ export class ImageController {
     imageData: UploadedFile
   ): Promise<IResponse> {
     try {
+      
       let isLetterFromUser = await this._letterClass.isLetterFromUser(
         _letterId,
         _userId
       );
-      if(isLetterFromUser){
+      if (isLetterFromUser) {
         let isCompleted = await this._letterClass.isCompletedLetter(_letterId);
         if (!isCompleted) {
           let data = new Image();
@@ -30,11 +31,13 @@ export class ImageController {
             await this._imageClass.registredImage(_letterId, data);
           if (ok) {
             createDir(resolve(__dirname, letter!.getPathLetter()));
-            await imageData.mv(resolve(__dirname, image!.getPathImage(letter!)));
-  
-            await this._letterClass.updatePercentageLetter(_letterId);
-  
-            return { ok: true, status: 200, message };
+            await imageData.mv(
+              resolve(__dirname, image!.getPathImage(letter!))
+            );
+
+            let {letter: letterUpdate} = await this._letterClass.updatePercentageLetter(_letterId);
+
+            return { ok: true, status: 200, message, result: { letter:letterUpdate } };
           } else return { ok: false, status: 400, message };
         } else {
           return {
@@ -43,14 +46,13 @@ export class ImageController {
             message: "El registro de la letra ya está lleno",
           };
         }
-      }else{
+      } else {
         return {
           ok: false,
           status: 400,
           message: "Esta letra no pertenece a este usuario",
         };
       }
-      
     } catch (error) {
       return { ok: true, status: 500, error };
     }

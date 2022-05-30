@@ -4,7 +4,7 @@ export const ENVIROMENT_APP = {
   PATH_SSL: process.env.PATH_SSL || '/etc/letsencrypt/live/senia.ga',
   SECRET_TOKEN: process.env.SECRET_TOKEN || "SecretoDeAmor",
   EXPIRES_IN: process.env.EXPIRES_IN || "7d",
-  COUNT_IMAGES: parseInt(process.env.COUNT_IMAGES as string) || 30,
+  COUNT_IMAGES: parseInt(process.env.COUNT_IMAGES as string) || 5,
 };
 
 export const ENVIROMENT_DATABASE = {

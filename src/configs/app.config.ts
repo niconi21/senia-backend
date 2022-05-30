@@ -22,8 +22,8 @@ export class App {
 
   private _middlewares(): void {
     this._app.use(cors());
-    this._app.use(express.json({ limit: "50bm" }));
-    this._app.use(express.urlencoded({ extended: false, limit: "50bm" }));
+    this._app.use(express.json({ limit: "50mb" }));
+    this._app.use(express.urlencoded({ extended: false, limit: "50mb" }));
     this._app.use("/public", express.static(resolve(__dirname, "../public")));
     this._app.use("/api/v1/", APP_ROUTES);
     this._createDirectoryPublic();
