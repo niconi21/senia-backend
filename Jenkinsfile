@@ -41,12 +41,6 @@ pipeline {
         }
       }
       
-      stage('Generate coverage report') {
-        steps {
-          // Run code-coverage reports
-          sh "cd ${PROJECT_ROOT}; npm run coverage"
-        }
-      }
       stage('scan') {
           environment {
             // Previously defined in the Jenkins "Global Tool Configuration"
