@@ -55,7 +55,7 @@ pipeline {
                           -Dsonar.projectName=seniaExample \
                           -Dsonar.projectVersion=0.0.${BUILD_NUMBER} \
                           -Dsonar.host.url=http://sonarqube:9000 \
-                          -Dsonar.sources=./${PROJECT_ROOT}/index.ts,./${PROJECT_ROOT}/src/ap.config.ts \
+                          -Dsonar.sources=./${PROJECT_ROOT}/index.ts,./${PROJECT_ROOT}/src/app.config.ts \
                           -Dsonar.login=admin \
                           -Dsonar.password=nodeisjs \
                           -Dsonar.javascript.lcov.reportPaths=./${PROJECT_ROOT}/coverage/lcov.info"
