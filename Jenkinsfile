@@ -47,7 +47,7 @@ pipeline {
           link: env.BUILD_URL, 
           result: currentBuild.currentResult, 
           title: JOB_NAME, 
-          webhookURL: env.WEBHOOk_URL
+          webhookURL: env.WEBHOOK_URL
 
         }
       }
