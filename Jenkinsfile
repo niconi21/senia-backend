@@ -40,31 +40,36 @@ pipeline {
           sh "cd ${PROJECT_ROOT}; npm install"
         }
       }
-      
-      stage('scan') {
-          environment {
-            // Previously defined in the Jenkins "Global Tool Configuration"
-            scannerHome = tool 'sonar-scanner'
-          }
-          steps {
-            // "sonarqube" is the server configured in "Configure System"
-            withSonarQubeEnv('sonarqube') {
-              // Execute the SonarQube scanner with desired flags
-              sh "${scannerHome}/bin/sonar-scanner \
-                          -Dsonar.projectKey=seniaExample:Test \
-                          -Dsonar.projectName=seniaExample \
-                          -Dsonar.projectVersion=0.0.${BUILD_NUMBER} \
-                          -Dsonar.host.url=http://sonarqube:9000 \
-                          -Dsonar.sources=./index.ts,./src/configs/app.config.ts \
-                          -Dsonar.login=admin \
-                          -Dsonar.password=nodeisjs \
-                          -Dsonar.javascript.lcov.reportPaths=./${PROJECT_ROOT}/coverage/lcov.info"
-            }
-            timeout(time: 3, unit: 'MINUTES') {
-              // In case of SonarQube failure or direct timeout exceed, stop Pipeline
-              waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
-            }
-          }
+      stage("Send discord message"){
+        steps{
+          discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
+
+        }
       }
+      // stage('scan') {
+      //     environment {
+      //       // Previously defined in the Jenkins "Global Tool Configuration"
+      //       scannerHome = tool 'sonar-scanner'
+      //     }
+      //     steps {
+      //       // "sonarqube" is the server configured in "Configure System"
+      //       withSonarQubeEnv('sonarqube') {
+      //         // Execute the SonarQube scanner with desired flags
+      //         sh "${scannerHome}/bin/sonar-scanner \
+      //                     -Dsonar.projectKey=seniaExample:Test \
+      //                     -Dsonar.projectName=seniaExample \
+      //                     -Dsonar.projectVersion=0.0.${BUILD_NUMBER} \
+      //                     -Dsonar.host.url=http://sonarqube:9000 \
+      //                     -Dsonar.sources=./index.ts,./src/configs/app.config.ts \
+      //                     -Dsonar.login=admin \
+      //                     -Dsonar.password=nodeisjs \
+      //                     -Dsonar.javascript.lcov.reportPaths=./${PROJECT_ROOT}/coverage/lcov.info"
+      //       }
+      //       timeout(time: 3, unit: 'MINUTES') {
+      //         // In case of SonarQube failure or direct timeout exceed, stop Pipeline
+      //         waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
+      //       }
+      //     }
+      // }
   }
 }
