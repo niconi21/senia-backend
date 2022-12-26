@@ -42,6 +42,8 @@ pipeline {
       }
       stage("Send discord message"){
         steps{
+          echo "WEBHOOK URL: "
+          echo env.WEBHOOK_URL
           discordSend description: "Jenkins Pipeline Build", 
           footer: "Footer Text", 
           link: env.BUILD_URL, 
