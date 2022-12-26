@@ -42,7 +42,12 @@ pipeline {
       }
       stage("Send discord message"){
         steps{
-          discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
+          discordSend description: "Jenkins Pipeline Build", 
+          footer: "Footer Text", 
+          link: env.BUILD_URL, 
+          result: currentBuild.currentResult, 
+          title: JOB_NAME, 
+          webhookURL: "https://discord.com/api/webhooks/1057065822671085669/OiutICwcuRRMBxlseoyKYUhPBq42a5-prTY6yngIf0uQ3QDsJStEMDkDOC6JJ_Hz_ja9"
 
         }
       }
