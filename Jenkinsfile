@@ -40,12 +40,10 @@ pipeline {
           sh "cd ${PROJECT_ROOT}; npm install"
         }
       }
-      stage("Send discord message"){
+      stage("Discord webhook"){
         steps{
           echo "WEBHOOK URL: "
           echo env.WEBHOOK_URL
-         discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "Webhook URL"
-
         }
       }
       // stage('scan') {
@@ -73,5 +71,10 @@ pipeline {
       //       }
       //     }
       // }
+  }
+  post{
+    always{
+         discordSend description: "Jenkins Pipeline Build", footer: "Footer Text", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: env.WEBHOOK_URL
+    }
   }
 }
