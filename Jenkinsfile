@@ -40,7 +40,11 @@ pipeline {
           sh "cd ${PROJECT_ROOT}; npm installs"
         }
       }
-      
+      stage("List env vars") {
+			  steps{
+				  sh "printenv | sort"
+			  }
+		  }
       
   // stage('scan') {
   //     environment {
@@ -70,7 +74,13 @@ pipeline {
   }
   post {
     always {
-      discordSend description: 'Jenkins Pipeline Build', footer: 'Footer Text', link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: env.WEBHOOK_URL
+      discordSend 
+        description: 'Compilación de Nicolas Moreno', 
+        footer: 'Footer Text', 
+        link: env.BUILD_URL, 
+        result: currentBuild.currentResult, 
+        title: 'Job: ${JOB_NAME}', 
+        webhookURL: env.WEBHOOK_URL
     }
   }
 }
