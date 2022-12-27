@@ -42,7 +42,7 @@ pipeline {
       stage('Install dependencies') {
         steps {
           sh 'npm --version'
-          sh "cd ${PROJECT_ROOT}; npm installs"
+          sh "cd ${PROJECT_ROOT}; npm install"
         }
       }
       
