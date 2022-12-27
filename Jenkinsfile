@@ -11,7 +11,7 @@ pipeline {
   agent any
 
   tools {
-      nodejs 'nodejs_14'
+      nodejs 'nodejs_16'
   }
 
   environment {
@@ -37,7 +37,7 @@ pipeline {
       stage('Install dependencies') {
         steps {
           sh 'npm --version'
-          sh "cd ${PROJECT_ROOT}; npm install"
+          sh "cd ${PROJECT_ROOT}; npm installs"
         }
       }
       
