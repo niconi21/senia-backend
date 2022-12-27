@@ -74,13 +74,7 @@ pipeline {
   }
   post {
     always {
-      discordSend 
-        description: 'Compilación de Nicolas Moreno', 
-        footer: 'Footer Text', 
-        link: env.BUILD_URL, 
-        result: currentBuild.currentResult, 
-        title: 'Job: ${JOB_NAME}', 
-        webhookURL: env.WEBHOOK_URL
+      discordSend description: 'Compilación de Nicolas Moreno', footer: 'Footer Text', link: env.BUILD_URL, result: currentBuild.currentResult, title: 'Job: ${JOB_NAME}', webhookURL: env.WEBHOOK_URL
     }
   }
 }
