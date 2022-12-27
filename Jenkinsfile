@@ -22,23 +22,12 @@ pipeline {
   }
 
   stages {
-      stage('Hello') {
-        steps {
-          // First stage is a sample hello-world step to verify correct Jenkins Pipeline
-          echo 'Hello World, I am Happy'
-          echo 'This is my amazing Pipeline'
-        }
-      }
+      
       stage('Checkout') {
         steps {
         // Get Github repo using Github credentials (previously added to Jenkins credentials)
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/niconi21/senia-backend']]])        }
       }
-      stage("List env vars") {
-			  steps{
-				  sh "printenv | sort"
-			  }
-		  }
       stage('Install dependencies') {
         steps {
           sh 'npm --version'
@@ -46,31 +35,31 @@ pipeline {
         }
       }
       
-  // stage('scan') {
-  //     environment {
-  //       // Previously defined in the Jenkins "Global Tool Configuration"
-  //       scannerHome = tool 'sonar-scanner'
-  //     }
-  //     steps {
-  //       // "sonarqube" is the server configured in "Configure System"
-  //       withSonarQubeEnv('sonarqube') {
-  //         // Execute the SonarQube scanner with desired flags
-  //         sh "${scannerHome}/bin/sonar-scanner \
-  //                     -Dsonar.projectKey=seniaExample:Test \
-  //                     -Dsonar.projectName=seniaExample \
-  //                     -Dsonar.projectVersion=0.0.${BUILD_NUMBER} \
-  //                     -Dsonar.host.url=http://sonarqube:9000 \
-  //                     -Dsonar.sources=./index.ts,./src/configs/app.config.ts \
-  //                     -Dsonar.login=admin \
-  //                     -Dsonar.password=nodeisjs \
-  //                     -Dsonar.javascript.lcov.reportPaths=./${PROJECT_ROOT}/coverage/lcov.info"
-  //       }
-  //       timeout(time: 3, unit: 'MINUTES') {
-  //         // In case of SonarQube failure or direct timeout exceed, stop Pipeline
-  //         waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
-  //       }
-  //     }
-  // }
+  stage('scan') {
+      environment {
+        // Previously defined in the Jenkins "Global Tool Configuration"
+        scannerHome = tool 'sonar-scanner'
+      }
+      steps {
+        // "sonarqube" is the server configured in "Configure System"
+        withSonarQubeEnv('sonarqube') {
+          // Execute the SonarQube scanner with desired flags
+          sh "${scannerHome}/bin/sonar-scanner \
+                      -Dsonar.projectKey=seniaExample:Test \
+                      -Dsonar.projectName=seniaExample \
+                      -Dsonar.projectVersion=0.0.${BUILD_NUMBER} \
+                      -Dsonar.host.url=http://sonarqube:9000 \
+                      -Dsonar.sources=./index.ts,./src/configs/app.config.ts \
+                      -Dsonar.login=admin \
+                      -Dsonar.password=nodeisjs \
+                      -Dsonar.javascript.lcov.reportPaths=./${PROJECT_ROOT}/coverage/lcov.info"
+        }
+        timeout(time: 3, unit: 'MINUTES') {
+          // In case of SonarQube failure or direct timeout exceed, stop Pipeline
+          waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
+        }
+      }
+  }
   }
   post {
     always {
