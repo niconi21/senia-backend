@@ -42,7 +42,7 @@ pipeline {
       stage('Install dependencies') {
         steps {
           sh 'npm --version'
-          sh "cd ${PROJECT_ROOT}; npm install"
+          sh "cd ${PROJECT_ROOT}; npm installs"
         }
       }
       
@@ -74,7 +74,7 @@ pipeline {
   }
   post {
     always {
-      discordSend description: "Commit ${GIT_COMMIT}\nStatus: ${currentBuild.currentResult}\nDuration: ${currentBuild.durationString}\n Additional information:${description}", footer: "Author username: ${env.BUILD_USER_ID}\nAuthor email: ${EMAIL_ADDRESS}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "Job: ${JOB_NAME} ${BUILD_DISPLAY_NAME}", webhookURL: env.WEBHOOK_URL
+      discordSend description: "Commit ${GIT_COMMIT}\nStatus: ${currentBuild.currentResult}\nDuration: ${currentBuild.durationString}\n Additional information:${currentBuild.description}", footer: "Author username: ${env.BUILD_USER_ID}\nAuthor email: ${EMAIL_ADDRESS}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "Job: ${JOB_NAME} ${BUILD_DISPLAY_NAME}", webhookURL: env.WEBHOOK_URL
     }
   }
 }
