@@ -74,7 +74,7 @@ pipeline {
   }
   post {
     always {
-      discordSend description: "Commit ${GIT_COMMIT}", footer: "Author: ${BUILD_USER_ID}\nAuthor Email: ${EMAIL_ADDRESS}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "Job: ${JOB_NAME} ${BUILD_DISPLAY_NAME}", webhookURL: env.WEBHOOK_URL
+      discordSend description: "Commit ${GIT_COMMIT}\nStatus; ${currentBuild.currentResult}", footer: "Author: ${env.BUILD_USER_ID}\nAuthor Email: ${EMAIL_ADDRESS}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "Job: ${JOB_NAME} ${BUILD_DISPLAY_NAME}", webhookURL: env.WEBHOOK_URL
     }
   }
 }
