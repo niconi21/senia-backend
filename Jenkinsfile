@@ -46,12 +46,7 @@ pipeline {
           sh "cd ${PROJECT_ROOT}; npm install"
         }
       }
-      stage('Discord webhook') {
-        steps {
-          echo 'WEBHOOK URL: '
-          echo env.WEBHOOK_URL
-        }
-      }
+      
   // stage('scan') {
   //     environment {
   //       // Previously defined in the Jenkins "Global Tool Configuration"
