@@ -10,12 +10,6 @@ def qualityGateValidation(qg) {
 pipeline {
   agent any
 
-  post {
-    always {
-      discordSend description: 'Jenkins Pipeline Build', footer: 'Footer Text', link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${env.WEBHOOK_URL}"
-    }
-  }
-
   tools {
       nodejs 'nodejs_16'
   }
@@ -44,6 +38,11 @@ pipeline {
         steps {
           sh 'npm --version'
           sh "cd ${PROJECT_ROOT}; npm install"
+        }
+      }
+      stage('Send message to Discord'){
+        steps {
+          discordSend description: 'Jenkins Pipeline Build', footer: 'Footer Text', link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${env.WEBHOOK_URL}"
         }
       }
       
