@@ -50,7 +50,7 @@ pipeline {
                       -Dsonar.projectVersion=0.0.${BUILD_NUMBER} \
                       -Dsonar.host.url=http://192.168.31.242:9000 \
                       -Dsonar.sources=./index.ts,./src/configs/app.config.ts \
-                      -Dsonar.login=admin \
+                      -Dsonar.login=jenkins \
                       -Dsonar.password=nodeisjs \
                       -Dsonar.javascript.lcov.reportPaths=./${PROJECT_ROOT}/coverage/lcov.info"
         }
