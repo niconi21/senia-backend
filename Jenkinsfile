@@ -48,7 +48,7 @@ pipeline {
                       -Dsonar.projectKey=seniaExample:Test \
                       -Dsonar.projectName=seniaExample \
                       -Dsonar.projectVersion=0.0.${BUILD_NUMBER} \
-                      -Dsonar.host.url=http://192.168.31.242:9000 \
+                      -Dsonar.host.url=http://sonarqube:9000 \
                       -Dsonar.sources=./index.ts,./src/configs/app.config.ts \
                       -Dsonar.login=admin \
                       -Dsonar.password=nodeisjs \
