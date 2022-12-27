@@ -74,7 +74,7 @@ pipeline {
   }
   post {
     always {
-      discordSend description: 'Compilación de Nicolas Moreno', footer: 'Footer Text', link: env.BUILD_URL, result: currentBuild.currentResult, title: 'Job: ${JOB_NAME}', webhookURL: env.WEBHOOK_URL
+      discordSend description: "Commit ${GIT_COMMIT}", footer: "Author: ${env.BUILD_USER_ID}\nAuthor Email: ${EMAIL_ADDRESS}", link: env.BUILD_URL, result: currentBuild.currentResult, title: "${JOB_NAME} ${BUILD_DISPLAY_NAME}", webhookURL: env.WEBHOOK_URL
     }
   }
 }
