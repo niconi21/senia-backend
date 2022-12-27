@@ -34,17 +34,17 @@ pipeline {
         // Get Github repo using Github credentials (previously added to Jenkins credentials)
         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/niconi21/senia-backend']]])        }
       }
+      stage("List env vars") {
+			  steps{
+				  sh "printenv | sort"
+			  }
+		  }
       stage('Install dependencies') {
         steps {
           sh 'npm --version'
           sh "cd ${PROJECT_ROOT}; npm installs"
         }
       }
-      stage("List env vars") {
-			  steps{
-				  sh "printenv | sort"
-			  }
-		  }
       
   // stage('scan') {
   //     environment {
